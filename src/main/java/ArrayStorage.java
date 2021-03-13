@@ -1,30 +1,61 @@
+package main.java;
+
 /**
  * Array based storage for Employees
  */
 public class ArrayStorage {
     Employee[] storage = new Employee[10000];
 
+    int storageSize = 0;
+
     void clear() {
+        for (int i = 0; i < storageSize; i++) {
+            storage[i] = null;
+            storageSize = 0;
+        }
     }
 
     void save(Employee employee) {
+        storage[storageSize] = employee;
+        storageSize++;
     }
 
     Employee get(String uuid) {
-        return null;
+        Employee employee = null;
+        for (int i = 0; i < storageSize; i++) {
+            if (storage[i].uuid.equals(uuid)) {
+                employee = storage[i];
+            }
+        }
+        return employee;
     }
 
     void delete(String uuid) {
+        for (int i = 0; i < storageSize; i++) {
+            if (storage[i].uuid.equals(uuid)) {
+                storage[i] = storage[storageSize - 1];
+                storage[storageSize - 1] = null;
+                storageSize--;
+            }
+        }
     }
 
     /**
      * @return array, contains only Employees in storage (without null)
      */
     Employee[] getAll() {
-        return new Employee[0];
+        Employee[] allEmployee = new Employee[storageSize];
+        if (storageSize == 0) {
+            System.out.println("Storage is empty");
+        } else {
+            for (int i = 0; i < storageSize; i++) {
+                allEmployee[i] = storage[i];
+            }
+        }
+        return allEmployee;
     }
 
     int size() {
-        return 0;
+        return storageSize;
     }
 }
