@@ -1,5 +1,3 @@
-package main.java;
-
 /**
  * Test for your ArrayStorage implementation
  */

@@ -1,5 +1,3 @@
-package main.java;
-
 /**
  * Array based storage for Employees
  */
