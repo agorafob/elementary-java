@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Array based storage for Employees
  */
@@ -7,10 +9,8 @@ public class ArrayStorage {
     int storageSize = 0;
 
     void clear() {
-        for (int i = 0; i < storageSize; i++) {
-            storage[i] = null;
-            storageSize = 0;
-        }
+        Arrays.fill(storage, null);
+        storageSize = 0;
     }
 
     void save(Employee employee) {
@@ -46,9 +46,7 @@ public class ArrayStorage {
         if (storageSize == 0) {
             System.out.println("Storage is empty");
         } else {
-            for (int i = 0; i < storageSize; i++) {
-                allEmployee[i] = storage[i];
-            }
+            allEmployee = Arrays.copyOf(storage, storageSize);
         }
         return allEmployee;
     }
