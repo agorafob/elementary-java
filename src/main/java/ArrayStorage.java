@@ -1,57 +1,78 @@
 import java.util.Arrays;
+import java.util.Scanner;
 
-/**
- * Array based storage for Employees
- */
 public class ArrayStorage {
-    Employee[] storage = new Employee[10000];
+    private Employee[] storage = new Employee[10000];
+    private int storageSize = 0;
 
-    int storageSize = 0;
-
-    void clear() {
-        Arrays.fill(storage, null);
-        storageSize = 0;
+    public void clear() {
+        Arrays.fill(this.storage, null);
+        this.storageSize = 0;
+        System.out.println("Storage cleared");
     }
 
-    void save(Employee employee) {
-        storage[storageSize] = employee;
-        storageSize++;
+    public void save(Employee employee) {
+        this.storage[this.storageSize] = employee;
+        this.storageSize++;
     }
 
-    Employee get(String uuid) {
+    public String scanner() {
+        Scanner scc = new Scanner(System.in);
+        return scc.next();
+    }
+
+    public void saveWithUuid() {
+        System.out.println("Input new uuid");
+        Employee employee = new Employee();
+        employee.setUuid(scanner());
+        save(employee);
+    }
+
+    public void deleteWithUuid() {
+        System.out.println("Input uuid for delete");
+        delete(scanner());
+    }
+
+    public void getWithUuid() {
+        if (this.storageSize == 0) {
+            getAll();
+        } else {
+            System.out.println("Input uuid to get");
+            System.out.println(get(scanner()).toString());
+        }
+    }
+
+    public Employee get(String uuid) {
         Employee employee = null;
-        for (int i = 0; i < storageSize; i++) {
-            if (storage[i].uuid.equals(uuid)) {
-                employee = storage[i];
+        for (int i = 0; i < this.storageSize; i++) {
+            if (this.storage[i].getUuid().equals(uuid)) {
+                employee = this.storage[i];
             }
         }
         return employee;
     }
 
-    void delete(String uuid) {
-        for (int i = 0; i < storageSize; i++) {
-            if (storage[i].uuid.equals(uuid)) {
-                storage[i] = storage[storageSize - 1];
-                storage[storageSize - 1] = null;
-                storageSize--;
+    public void delete(String uuid) {
+        for (int i = 0; i < this.storageSize; i++) {
+            if (this.storage[i].getUuid().equals(uuid)) {
+                this.storage[i] = this.storage[this.storageSize - 1];
+                this.storage[this.storageSize - 1] = null;
+                this.storageSize--;
             }
         }
     }
 
-    /**
-     * @return array, contains only Employees in storage (without null)
-     */
-    Employee[] getAll() {
-        Employee[] allEmployee = new Employee[storageSize];
-        if (storageSize == 0) {
+    public Employee[] getAll() {
+        Employee[] allEmployee = new Employee[this.storageSize];
+        if (this.storageSize == 0) {
             System.out.println("Storage is empty");
         } else {
-            allEmployee = Arrays.copyOf(storage, storageSize);
+            allEmployee = Arrays.copyOf(this.storage, this.storageSize);
         }
         return allEmployee;
     }
 
-    int size() {
-        return storageSize;
+    public int size() {
+        return this.storageSize;
     }
 }
