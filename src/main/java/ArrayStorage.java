@@ -34,8 +34,12 @@ public class ArrayStorage {
     }
 
     public void getWithUuid() {
-        System.out.println("Input uuid to get");
-        System.out.println(get(scanner()).toString());
+        if (this.storageSize == 0) {
+            getAll();
+        } else {
+            System.out.println("Input uuid to get");
+            System.out.println(get(scanner()).toString());
+        }
     }
 
     public Employee get(String uuid) {
